@@ -1,0 +1,23 @@
+Step 1
+
+    Player can choose One player (play against AI) or Two players mode.
+    The game always starts with player X.
+    Two function is defined for handling inputs.
+    One for define the board row the other the column.
+    At every steps the program reprint the board.
+    The AI is not too smart :(, just putting O at random position.
+    When someone won/ or the game concluded to draw, the game exits.
+
+Step 2:
+
+    - Defining a function which creating the board according to the input size parameter.
+    - Redefining the coordinates of the board: row as alphabets and column as numbers.
+    - Redefining get_row_input/get_column_input functions to one function.
+    - Defining a function with two choice: replay or exit game.
+    - Handling escape shortcut.
+    - Separating program parts to other files.
+    
+    Optional:
+	- Developing AI.
+
+
