@@ -58,14 +58,28 @@ def check_win_contition(row, column, value):
     return (res_row or res_column or res_diag1 or res_diag2)
 
 def play_mode():
-    mode = input("Single Player: 1, Player vs Player: 2 : ")
     while True:
+        mode = input("Single Player: 1, Player vs Player: 2 : ")
         if mode == "1":
             return True
         elif mode == "2":
             return False
         else:
             print("You did not choose mode!")
+
+def get_board_size():
+    while True:
+        try:
+            size_input = int(input("Choose board size(3-9): "))
+            if size_input >= 3 and size_input <= 9:
+                return size_input
+            else:
+                print("Please choose valid size!")
+        except ValueError:
+            print("Please enter a number(3-9)!")
+
+
+
 
 def player_move(win_cond, sign):
     a = True
@@ -86,6 +100,7 @@ def player_move(win_cond, sign):
 
 def game():
     ai = play_mode()
+    size = get_board_size()
     print_board()
     counter = 1
     win_cond = False
@@ -118,4 +133,24 @@ def game():
                     counter -= 1
         counter += 1
 
-game()
+def replay_or_exit():
+    while True:
+        replay_or_exit = input("Do you want to play again(Y) or quit(Q): ")
+        if replay_or_exit.upper() == "Y":
+            return True
+        elif replay_or_exit.upper() == "Q":
+            exit()
+        else:
+            print("You have not decided!")
+            
+
+def main():
+    while True:
+        game()
+        replay_or_exit()
+
+
+
+
+
+main()
