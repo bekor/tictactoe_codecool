@@ -9,35 +9,14 @@
 #
 import string
 from random import randint
+from game_board import value_board_value, print_board
+import get_input
 
 poss_alpha_inputs = string.ascii_uppercase[:9]
 poss_num_inputs = string.digits[1:]
 
-# Set an empty 3x3 array
 value_board = []
-for i in range(3):
-    value_board.append([" "] * 3)
 
-def get_coordinate_input():
-    while True:
-        raw_coordinate = input("Insert coordinates (like: A1): ")
-        if (raw_coordinate[0] in poss_alpha_inputs) and (raw_coordinate[1] in poss_num_inputs):
-            coord = []
-            coord.append(poss_alpha_inputs.index(raw_coordinate[0]))
-            coord.append(int(raw_coordinate[1])-1)
-            print(coord)
-            return coord
-        else:
-            print("Wrong row input")
-
-
-def print_board():
-    print("\n")
-    print(" " + " A " + " " + " B " + " " + " C")
-    for i in range(3):
-        print("%s " %(i + 1) + value_board[i][0] +  " | " + value_board[i][1] + " | " + value_board[i][2])
-        if i != 2:
-            print(" -" * 6)
 
 def check_win_contition(row, column, value):
     res_row = res_column = res_diag1 = res_diag2 = True
@@ -57,74 +36,51 @@ def check_win_contition(row, column, value):
     
     return (res_row or res_column or res_diag1 or res_diag2)
 
-def play_mode():
+
+def player_move(sign):
     while True:
-        mode = input("Single Player: 1, Player vs Player: 2 : ")
-        if mode == "1":
-            return True
-        elif mode == "2":
-            return False
-        else:
-            print("You did not choose mode!")
-
-def get_board_size():
-    while True:
-        try:
-            size_input = int(input("Choose board size(3-9): "))
-            if size_input >= 3 and size_input <= 9:
-                return size_input
-            else:
-                print("Please choose valid size!")
-        except ValueError:
-            print("Please enter a number(3-9)!")
-
-
-
-
-def player_move(win_cond, sign):
-    a = True
-    while a == True:
-        player_coord = get_coordinate_input()
+        player_coord = get_input.get_coordinate_input(poss_alpha_inputs, poss_num_inputs)
         value = value_board[player_coord[0]][player_coord[1]]
+        print(player_coord)
         if value == " ":
             value_board[player_coord[0]][player_coord[1]] = sign
-            print_board()
-            win_cond = check_win_contition(player_coord[0], player_coord[1], sign)
-            if win_cond == True:
-                print("%s Player Win!" % sign)
-                return 1
-            else:
-                a = False
+            return player_coord
         else:
-            print("Wrong coordonates \n%s player try other coords" % sign)
+            print("Wrong coordinates \n%s player try other coords" % sign)        
+
 
 def game():
-    ai = play_mode()
-    size = get_board_size()
-    print_board()
+    ai = get_input.play_mode()
+    size = get_input.get_board_size()
+    value_board_value(size, value_board)
+    print_board(size, value_board, poss_alpha_inputs)
     counter = 1
     win_cond = False
     while counter < 10:
         
-        if counter %2 != 0:
-            x_player = player_move(win_cond, "x")
-            if x_player == 1:
+        if counter % 2 != 0:
+            player_coord = player_move("x")
+            print_board(size, value_board, poss_alpha_inputs)
+            if check_win_contition(player_coord[0], player_coord[1], "x"):
+                print("X Player Win!")
                 break
 
         if not ai:          
-            if counter %2 == 0:
-                o_player = player_move(win_cond, "o")
-                if o_player == 1:
+            if counter % 2 == 0:
+                player_coord = player_move("o")
+                print_board(size, value_board, poss_alpha_inputs)
+                if check_win_contition(player_coord[0], player_coord[1], "o"):
+                    print("O Player Win!")
                     break
 
         else:
-            if counter %2 == 0:
+            if counter % 2 == 0:
                 ai_row = randint(0, 2)
                 ai_column = randint(0, 2)
                 ai_value = value_board[ai_row][ai_column]
                 if ai_value == " ":
                     value_board[ai_row][ai_column] = "o"
-                    print_board()
+                    print_board(size, value_board, poss_alpha_inputs)
                     win_cond = check_win_contition(ai_row, ai_column, "o")
                     if win_cond == True:
                         print("AI Win!")
@@ -133,21 +89,14 @@ def game():
                     counter -= 1
         counter += 1
 
-def replay_or_exit():
-    while True:
-        replay_or_exit = input("Do you want to play again(Y) or quit(Q): ")
-        if replay_or_exit.upper() == "Y":
-            return True
-        elif replay_or_exit.upper() == "Q":
-            exit()
-        else:
-            print("You have not decided!")
+
+
             
 
 def main():
     while True:
         game()
-        replay_or_exit()
+        get_input.replay_or_exit()
 
 
 
