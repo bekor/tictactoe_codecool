@@ -7,35 +7,33 @@
 #
 #  This program is running in terminal.
 #
-
+import string
 from random import randint
 
-list_of_possible_inputs = ("1", "2", "3")
+poss_alpha_inputs = string.ascii_uppercase[:9]
+poss_num_inputs = string.digits[1:]
 
 # Set an empty 3x3 array
 value_board = []
 for i in range(3):
     value_board.append([" "] * 3)
 
-def get_row_input():
+def get_coordinate_input():
     while True:
-        r = input("row: ")
-        if r in list_of_possible_inputs:
-            return (int(r) - 1)
+        raw_coordinate = input("Insert coordinates (like: A1): ")
+        if (raw_coordinate[0] in poss_alpha_inputs) and (raw_coordinate[1] in poss_num_inputs):
+            coord = []
+            coord.append(poss_alpha_inputs.index(raw_coordinate[0]))
+            coord.append(int(raw_coordinate[1])-1)
+            print(coord)
+            return coord
         else:
             print("Wrong row input")
 
-def get_column_input():
-    while True:
-        c = input("column: ")
-        if c in list_of_possible_inputs:
-            return (int(c) -1)
-        else:
-            print("Wrong column input")
 
 def print_board():
     print("\n")
-    print(" " + " 1 " + " " + " 2 " + " " + " 3")
+    print(" " + " A " + " " + " B " + " " + " C")
     for i in range(3):
         print("%s " %(i + 1) + value_board[i][0] +  " | " + value_board[i][1] + " | " + value_board[i][2])
         if i != 2:
@@ -72,13 +70,12 @@ def play_mode():
 def player_move(win_cond, sign):
     a = True
     while a == True:
-        player_row = get_row_input()
-        player_column = get_column_input()
-        value = value_board[player_row][player_column]
+        player_coord = get_coordinate_input()
+        value = value_board[player_coord[0]][player_coord[1]]
         if value == " ":
-            value_board[player_row][player_column] = sign
+            value_board[player_coord[0]][player_coord[1]] = sign
             print_board()
-            win_cond = check_win_contition(player_row, player_column, sign)
+            win_cond = check_win_contition(player_coord[0], player_coord[1], sign)
             if win_cond == True:
                 print("%s Player Win!" % sign)
                 return 1
