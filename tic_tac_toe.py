@@ -88,10 +88,7 @@ def game():
                 else:
                     counter -= 1
         counter += 1
-
-
-
-            
+         
 
 def main():
     while True:
@@ -99,7 +96,12 @@ def main():
         get_input.replay_or_exit()
 
 
-
-
-
-main()
+if __name__ == '__main__':
+    try:
+        main()
+    except KeyboardInterrupt:
+        pass
+    finally:
+        print("You terminated the beauty of the Tic-Tac-Toe")
+        print('You pressed Ctrl+C!')
+        sys.exit()
