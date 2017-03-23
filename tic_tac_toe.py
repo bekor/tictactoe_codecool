@@ -7,7 +7,7 @@
 #
 #  This program is running in terminal.
 #
-import sys
+import atexit
 import string
 from random import randint
 from game_board import board_value, print_board
@@ -63,7 +63,7 @@ def game():
     counter = 1
     win_cond = False
     while counter < (size**2 + 1):
-        
+
         if counter % 2 != 0:
             player_coord = player_move("x")
             print_board(size, BOARD, poss_alpha_inputs)
@@ -72,7 +72,7 @@ def game():
                 print("X Player Win!")
                 break
 
-        if not ai:          
+        if not ai:
             if counter % 2 == 0:
                 player_coord = player_move("o")
                 print_board(size, BOARD, poss_alpha_inputs)
@@ -87,7 +87,7 @@ def game():
                 if ai_coord:
                     print("AI Win!")
         counter += 1
-   
+
 
 def main():
     while True:
@@ -97,12 +97,15 @@ def main():
         BOARD = []
 
 
+def quit_gracefully():
+    print("You terminated the beauty of the Tic-Tac-Toe")
+    print('You pressed Ctrl+C!')
+
+
 if __name__ == '__main__':
     try:
         main()
-    except KeyboardInterrupt:
+    except EOFError:
         pass
     finally:
-        print("You terminated the beauty of the Tic-Tac-Toe")
-        print('You pressed Ctrl+C!')
-        sys.exit()
+        atexit.register(quit_gracefully)

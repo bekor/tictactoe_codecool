@@ -23,14 +23,18 @@ def get_board_size():
 
 def get_coordinate_input(p_alpha, p_num):
     while True:
-        raw_coordinate = input("Insert coordinates (like: A1): ")
-        if (raw_coordinate[0].upper() in p_alpha) and \
-           (raw_coordinate[1] in p_num):
-            coord = []
-            coord.append(int(raw_coordinate[1])-1)
-            coord.append(p_alpha.index(raw_coordinate[0]))
-            return coord
-        else:
+        try:
+            raw_coordinate = input("Insert coordinates (like: A1): ")
+            print(raw_coordinate[0])
+            if (raw_coordinate[0] in p_alpha) and \
+               (raw_coordinate[1] in p_num):
+                coord = []
+                coord.append(int(raw_coordinate[1])-1)
+                coord.append(p_alpha.index(raw_coordinate[0]))
+                return coord
+            else:
+                print("Wrong row input")
+        except IndexError:
             print("Wrong row input")
 
 
