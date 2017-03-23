@@ -7,6 +7,7 @@
 #
 #  This program is running in terminal.
 #
+import sys
 import string
 from random import randint
 from game_board import board_value, print_board
@@ -24,7 +25,6 @@ def player_move(sign):
     while True:
         player_coord = get_input.get_coordinate_input(poss_alpha_inputs, poss_num_inputs)
         value = BOARD[player_coord[0]][player_coord[1]]
-        print(player_coord)
         if value == " ":
             BOARD[player_coord[0]][player_coord[1]] = sign
             return player_coord
@@ -37,6 +37,7 @@ def win_sequence_lenght(size):
         size = 4
     elif size > 8:
         size = 5
+    print("Put {} same sign to win".format(size))
     return size
 
 
