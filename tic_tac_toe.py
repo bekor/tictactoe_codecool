@@ -92,7 +92,7 @@ def game():
 
 def main():
     while True:
-        
+        global BOARD
         game()
         get_input.replay_or_exit()
         BOARD = []
