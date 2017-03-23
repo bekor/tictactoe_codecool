@@ -20,10 +20,10 @@ poss_num_inputs = string.digits[1:]
 BOARD = []
 
 
-
 def player_move(sign):
     while True:
-        player_coord = get_input.get_coordinate_input(poss_alpha_inputs, poss_num_inputs)
+        player_coord = get_input.get_coordinate_input(poss_alpha_inputs, 
+                                                      poss_num_inputs)
         value = BOARD[player_coord[0]][player_coord[1]]
         if value == " ":
             BOARD[player_coord[0]][player_coord[1]] = sign
@@ -49,7 +49,8 @@ def ai_move(size, win_seq, alpha_inputs):
         if ai_value == " ":
             BOARD[ai_row][ai_column] = "o"
             print_board(size, BOARD, alpha_inputs)
-            win_cond = check_board_value(ai_row, ai_column, "o", BOARD, size, win_seq)
+            win_cond = check_board_value(ai_row, ai_column, "o", BOARD, 
+                                         size, win_seq)
             return win_cond
 
 
@@ -66,7 +67,8 @@ def game():
         if counter % 2 != 0:
             player_coord = player_move("x")
             print_board(size, BOARD, poss_alpha_inputs)
-            if check_board_value(player_coord[0], player_coord[1], "x", BOARD, size, win_seq):
+            if check_board_value(player_coord[0], player_coord[1], "x", 
+                                 BOARD, size, win_seq):
                 print("X Player Win!")
                 break
 
@@ -74,7 +76,8 @@ def game():
             if counter % 2 == 0:
                 player_coord = player_move("o")
                 print_board(size, BOARD, poss_alpha_inputs)
-                if check_board_value(player_coord[0], player_coord[1], "o", BOARD, size, win_seq):
+                if check_board_value(player_coord[0], player_coord[1], "o", 
+                                     BOARD, size, win_seq):
                     print("O Player Win!")
                     break
 

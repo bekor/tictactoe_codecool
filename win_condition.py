@@ -15,6 +15,7 @@ def check_board_value(row, column, sign, board, size, win_amount):
 
     return (res_column or res_row or res_diag1 or res_diag2)
 
+
 def check_diagonals(board, size, sign, win_amount):
     board_diag = []
     for size_runner in range(size+1):

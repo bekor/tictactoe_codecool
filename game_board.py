@@ -1,7 +1,7 @@
 import os
 
 
-def board_value(size,value_b):
+def board_value(size, value_b):
     for i in range(size):
         value_b.append([" "] * size)
 
@@ -23,6 +23,6 @@ def print_board(size, value_b, p_alpha):
         print(" %s" % (i + 1) + "".join(print_rows))
         print_rows = []
         if i <= (size-2):
-            print("   " + "-" * (size * 4 -1))
+            print("   " + "-" * (size * 4 - 1))
 
 
