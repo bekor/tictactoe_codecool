@@ -10,7 +10,7 @@
 import string
 from random import randint
 from game_board import board_value, print_board
-from win_condition import check_win_contition
+from win_condition import check_board_value
 import get_input
 
 poss_alpha_inputs = string.ascii_uppercase[:9]
@@ -51,7 +51,7 @@ def game():
         if counter % 2 != 0:
             player_coord = player_move("x")
             print_board(size, BOARD, poss_alpha_inputs)
-            if check_win_contition(player_coord[0], player_coord[1], "x", BOARD, size, win_seq):
+            if check_board_value(player_coord[0], player_coord[1], "x", BOARD, size, win_seq):
                 print("X Player Win!")
                 break
 
@@ -59,7 +59,7 @@ def game():
             if counter % 2 == 0:
                 player_coord = player_move("o")
                 print_board(size, BOARD, poss_alpha_inputs)
-                if check_win_contition(player_coord[0], player_coord[1], "o", BOARD, size, win_seq):
+                if check_board_value(player_coord[0], player_coord[1], "o", BOARD, size, win_seq):
                     print("O Player Win!")
                     break
 
@@ -78,7 +78,7 @@ def ai_move(size):
         ai_value = BOARD[ai_row][ai_column]
         if ai_value == " ":
             BOARD[ai_row][ai_column] = "o"
-            win_cond = check_win_contition(ai_row, ai_column, "o", BOARD, size, win_seq)
+            win_cond = check_board_value(ai_row, ai_column, "o", BOARD, size, win_seq)
             return win_cond
    
 
