@@ -1,7 +1,7 @@
 import os
 
 
-def value_board_value(size,value_b):
+def board_value(size,value_b):
     for i in range(size):
         value_b.append([" "] * size)
 

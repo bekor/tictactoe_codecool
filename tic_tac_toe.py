@@ -9,29 +9,29 @@
 #
 import string
 from random import randint
-from game_board import value_board_value, print_board
+from game_board import board_value, print_board
 import get_input
 
 poss_alpha_inputs = string.ascii_uppercase[:9]
 poss_num_inputs = string.digits[1:]
 
-value_board = []
+BOARD = []
 
 
 def check_win_contition(row, column, value):
     res_row = res_column = res_diag1 = res_diag2 = True
 
     for i in range(3):
-        if value_board[row][i] != value:
+        if BOARD[row][i] != value:
             res_row = False
     for i in range(3):
-        if value_board[i][column] != value:
+        if BOARD[i][column] != value:
             res_column = False
     for i in range(3):
-        if value_board[i][i] != value:
+        if BOARD[i][i] != value:
             res_diag1 = False
     for i in range(3):
-        if value_board[i][-(i+1)] != value:
+        if BOARD[i][-(i+1)] != value:
             res_diag2 = False
     
     return (res_row or res_column or res_diag1 or res_diag2)
@@ -40,10 +40,10 @@ def check_win_contition(row, column, value):
 def player_move(sign):
     while True:
         player_coord = get_input.get_coordinate_input(poss_alpha_inputs, poss_num_inputs)
-        value = value_board[player_coord[0]][player_coord[1]]
+        value = BOARD[player_coord[0]][player_coord[1]]
         print(player_coord)
         if value == " ":
-            value_board[player_coord[0]][player_coord[1]] = sign
+            BOARD[player_coord[0]][player_coord[1]] = sign
             return player_coord
         else:
             print("Wrong coordinates \n%s player try other coords" % sign)        
@@ -52,15 +52,15 @@ def player_move(sign):
 def game():
     ai = get_input.play_mode()
     size = get_input.get_board_size()
-    value_board_value(size, value_board)
-    print_board(size, value_board, poss_alpha_inputs)
+    board_value(size, BOARD)
+    print_board(size, BOARD, poss_alpha_inputs)
     counter = 1
     win_cond = False
     while counter < 10:
         
         if counter % 2 != 0:
             player_coord = player_move("x")
-            print_board(size, value_board, poss_alpha_inputs)
+            print_board(size, BOARD, poss_alpha_inputs)
             if check_win_contition(player_coord[0], player_coord[1], "x"):
                 print("X Player Win!")
                 break
@@ -68,7 +68,7 @@ def game():
         if not ai:          
             if counter % 2 == 0:
                 player_coord = player_move("o")
-                print_board(size, value_board, poss_alpha_inputs)
+                print_board(size, BOARD, poss_alpha_inputs)
                 if check_win_contition(player_coord[0], player_coord[1], "o"):
                     print("O Player Win!")
                     break
@@ -77,10 +77,10 @@ def game():
             if counter % 2 == 0:
                 ai_row = randint(0, 2)
                 ai_column = randint(0, 2)
-                ai_value = value_board[ai_row][ai_column]
+                ai_value = BOARD[ai_row][ai_column]
                 if ai_value == " ":
-                    value_board[ai_row][ai_column] = "o"
-                    print_board(size, value_board, poss_alpha_inputs)
+                    BOARD[ai_row][ai_column] = "o"
+                    print_board(size, BOARD, poss_alpha_inputs)
                     win_cond = check_win_contition(ai_row, ai_column, "o")
                     if win_cond == True:
                         print("AI Win!")
@@ -92,8 +92,10 @@ def game():
 
 def main():
     while True:
+        
         game()
         get_input.replay_or_exit()
+        BOARD = []
 
 
 if __name__ == '__main__':
