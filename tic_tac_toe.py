@@ -31,12 +31,26 @@ def player_move(sign):
         else:
             print("Wrong coordinates \n%s player try other coords" % sign)        
 
+
 def win_sequence_lenght(size):
     if size > 3 and size < 8:
         size = 4
     elif size > 8:
         size = 5
     return size
+
+
+def ai_move(size, win_seq, alpha_inputs):
+    while True:
+        ai_row = randint(0, size - 1)
+        ai_column = randint(0, size - 1)
+        ai_value = BOARD[ai_row][ai_column]
+        if ai_value == " ":
+            BOARD[ai_row][ai_column] = "o"
+            print_board(size, BOARD, alpha_inputs)
+            win_cond = check_board_value(ai_row, ai_column, "o", BOARD, size, win_seq)
+            return win_cond
+
 
 def game():
     ai = get_input.play_mode()
@@ -65,21 +79,10 @@ def game():
 
         else:
             if counter % 2 == 0:
-                ai_coord = ai_move(size)
-                print_board(size, BOARD, poss_alpha_inputs)
+                ai_coord = ai_move(size, win_seq, poss_alpha_inputs)
                 if ai_coord:
                     print("AI Win!")
         counter += 1
-
-def ai_move(size):
-    while True:
-        ai_row = randint(0, size - 1)
-        ai_column = randint(0, size - 1)
-        ai_value = BOARD[ai_row][ai_column]
-        if ai_value == " ":
-            BOARD[ai_row][ai_column] = "o"
-            win_cond = check_board_value(ai_row, ai_column, "o", BOARD, size, win_seq)
-            return win_cond
    
 
 def main():
