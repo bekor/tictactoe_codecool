@@ -1,17 +1,24 @@
-def check_win_contition(row, column, value):
-    res_row = res_column = res_diag1 = res_diag2 = True
-
-    for i in range(3):
-        if BOARD[row][i] != value:
-            res_row = False
-    for i in range(3):
-        if BOARD[i][column] != value:
-            res_column = False
-    for i in range(3):
-        if BOARD[i][i] != value:
-            res_diag1 = False
-    for i in range(3):
-        if BOARD[i][-(i+1)] != value:
-            res_diag2 = False
+def check_board_value(row, column, sign, board, size, win_amount):
+    result = True
+    board_row_list = []
+    board_column_list = []
+    board_diag1_list = []
+    board_diag2_list = []
     
-    return (res_row or res_column or res_diag1 or res_diag2)
+    for i in range(size):
+        board_row_list.append(board[row][i])
+        board_column_list.append(board[i][column])   
+        board_diag1_list.append(board[i][i])
+        board_diag2_list.append(board[i][-(i + 1)])
+
+    check_win_condition(board_row_list, sign, win_amount)
+    check_win_condition(board_column_list, sign, win_amount)
+    check_win_condition(board_diag1_list, sign, win_amount)
+    check_win_condition(board_diag2_list, sign, win_amount)
+
+    return result
+
+
+def check_win_condition(board_list, sign, win_amount):
+    if (win_amount * sign) in board_list:
+        result = False
