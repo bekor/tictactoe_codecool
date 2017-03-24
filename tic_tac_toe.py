@@ -99,7 +99,7 @@ def main():
 
 def quit_gracefully():
     print("You terminated the beauty of the Tic-Tac-Toe")
-    print('You pressed Ctrl+C!')
+    print('You pressed Quited!')
 
 
 if __name__ == '__main__':
