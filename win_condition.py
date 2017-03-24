@@ -8,7 +8,7 @@ def check_board_value(row, column, sign, board, size, win_amount):
     res_row = check_win_condition(board_row_list, sign, win_amount)
     for i in range(size):
         board_column_list.append(board[i][column])
-    res_row = check_win_condition(board_row_list, sign, win_amount)    
+    res_row = check_win_condition(board_column_list, sign, win_amount)    
     
     res_diag1 = check_diagonals(board, size, sign, win_amount)
     res_diag2 = check_diagonals(board[::-1], size, sign, win_amount)
