@@ -17,8 +17,8 @@ def print_board(size, value_b, p_alpha):
     for i in range(size):
         for j in range(size):
             if j == 0:
-                print_rows.append("  " + value_b[i][j])                                
-            else:    
+                print_rows.append("  " + value_b[i][j])
+            else:
                 print_rows.append(" | " + value_b[i][j])
         print(" %s" % (i + 1) + "".join(print_rows))
         print_rows = []

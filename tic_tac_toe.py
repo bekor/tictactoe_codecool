@@ -22,14 +22,14 @@ BOARD = []
 
 def player_move(sign):
     while True:
-        player_coord = get_input.get_coordinate_input(poss_alpha_inputs, 
+        player_coord = get_input.get_coordinate_input(poss_alpha_inputs,
                                                       poss_num_inputs)
         value = BOARD[player_coord[0]][player_coord[1]]
         if value == " ":
             BOARD[player_coord[0]][player_coord[1]] = sign
             return player_coord
         else:
-            print("Wrong coordinates \n%s player try other coords" % sign)        
+            print("Wrong coordinates \n%s player try other coords" % sign)
 
 
 def win_sequence_lenght(size):
@@ -57,9 +57,9 @@ def ai_move(size, win_seq, alpha_inputs):
 def game():
     ai = get_input.play_mode()
     size = get_input.get_board_size()
-    win_seq = win_sequence_lenght(size)
     board_value(size, BOARD)
     print_board(size, BOARD, poss_alpha_inputs)
+    win_seq = win_sequence_lenght(size)
     counter = 1
     win_cond = False
     while counter < (size**2 + 1):
